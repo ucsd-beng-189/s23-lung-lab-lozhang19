@@ -4,7 +4,7 @@ clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
 setup_lung
-betas = 0.1:0.1:1;
+betas = 0.1:0.01:1;
 PI_values = zeros(size(betas));
 Pabar_values = zeros(size(betas));
 PAbar_values = zeros(size(betas));
