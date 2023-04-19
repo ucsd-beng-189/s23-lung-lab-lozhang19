@@ -13,10 +13,10 @@ Pv_values = zeros(size(betas));
 for i=1:length(betas)
     beta=betas(i);
     [PI, PAbar, Pabar, Pv] = lung(beta);
-    PI_values = PI;
-    Pabar_values = Pabar;
-    PAbar_values = PAbar;
-    Pv_values = Pv;
+    PI_values(i) = PI;
+    Pabar_values(i) = Pabar;
+    PAbar_values(i) = PAbar;
+    Pv_values(i) = Pv;
 end
 
 figure;
