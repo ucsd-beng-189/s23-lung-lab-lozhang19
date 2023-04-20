@@ -1,17 +1,17 @@
-% Task5
+%Task3
 clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
-cI_values = linspace(0.21, 0.10, 100);
+betas = [0:0.01:1];
 
-for i=1:length(cI_values)
-    cI = cI_values(i);
-    PI = cI * RT;
+for i=1:length(betas)
+    beta=betas(i);
     setup_lung
     cvsolve
     outchecklung
-    [~, PAbar, Pabar, Pv] = lung(0.5);
+    [PI, PAbar, Pabar, Pv] = lung(beta);
+    PI_values(i) = PI;
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
@@ -19,11 +19,12 @@ end
 
 figure;
 hold on;
-plot(cI_values, PAbar_values, 'DisplayName', 'PAbar');
-plot(cI_values, Pabar_values, 'DisplayName', 'Pabar');
-plot(cI_values, Pv_values, 'DisplayName', 'Pv');
-xlabel('cI');
+plot(betas, PI_values, 'DisplayName', 'PI');
+plot(betas, PAbar_values, 'DisplayName', 'PAbar');
+plot(betas, Pabar_values, 'DisplayName', 'Pabar');
+plot(betas, Pv_values, 'DisplayName', 'Pv');
+xlabel('Beta');
 ylabel('Partial Pressure (mmHg)');
 legend;
-title('Partial Pressures as functions of cI');
+title('Partial Pressures as functions of Beta');
 hold off;
