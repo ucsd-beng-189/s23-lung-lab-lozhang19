@@ -1,30 +1,36 @@
-% Task3
+% Task4
 clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
-betas = [0:0.01:1];
+betas = [0:0.1:1];
+max_M_values = zeros(1, length(betas));
 
 for i=1:length(betas)
     beta=betas(i);
-    setup_lung
-    cvsolve
-    outchecklung
-    [PI, PAbar, Pabar, Pv] = lung(beta);
-    PI_values(i) = PI;
-    Pabar_values(i) = Pabar;
-    PAbar_values(i) = PAbar;
-    Pv_values(i) = Pv;
+    M_low = 0;
+    M_high = 1;
+
+    while M_high - M_low > 0.001
+        M = (M_low + M_high)/2;
+
+        try
+            setup_lung
+            cvsolve
+            outchecklung
+            [PI, PAbar, Pabar, Pv] = lung(beta);
+        catch
+            M_high = M;
+        end
+    end
+
+    max_M_values(i) = M_low;
 end
 
 figure;
-hold on;
-plot(betas, PI_values, 'DisplayName', 'PI');
-plot(betas, PAbar_values, 'DisplayName', 'PAbar');
-plot(betas, Pabar_values, 'DisplayName', 'Pabar');
-plot(betas, Pv_values, 'DisplayName', 'Pv');
+
+plot(betas, max_M_values, 'DisplayName', 'Max Sustainable Oxygen Consumpution Rate');
 xlabel('Beta');
-ylabel('Partial Pressure (mmHg)');
+ylabel('Max Sustainable Oxygen Consumpution (M)');
 legend;
-title('Partial Pressures as functions of Beta');
-hold off;
+title('Max Sustainable Oxygen Consumpution Rate as functions of Beta');
