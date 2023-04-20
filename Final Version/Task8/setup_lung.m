@@ -49,7 +49,7 @@ camax=cstar*(PI/Pstar)^3/(1+(PI/Pstar)^3)
 VAtotal=5.0     %(liters/minute)
 %
 %expected value of total perfusion:
-Qtotal=5.6      %(liters/minute)
+Qtotal=3      %(liters/minute)
 %
 %expected alveolar ventilation per alveolus:
 VAbar=VAtotal/n
