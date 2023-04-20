@@ -26,7 +26,7 @@ end
     RT=760*22.4*(T0/273.15);
     cI=PI/RT;
     cref=0.2/(22.4*(310/273));
-    cstar=cref*(1+altitude/1000);
+    cstar=cref;
     setup_lung
     cvsolve
     outchecklung
