@@ -1,4 +1,17 @@
 %filename: cvsolve.m
+function [cv, isError] = cvsolve(r)
+global camax maxcount M;
+isError = 0;
+
+if(Mdiff(0,r)>0)
+    % Record the error
+    isError = 1;
+    cv = 0;
+    return;
+end
+
+% Rest of the cvsolve.m code remains unchanged...
+
 if(Mdiff(0,r)>0)
   %stop program and issue error message:
   error('M is too large')
