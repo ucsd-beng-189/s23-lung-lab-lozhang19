@@ -26,14 +26,18 @@ end
     RT=760*22.4*(T0/273.15);
     cI=PI/RT;
     cref=0.2/(22.4*(310/273));
-    cstar=2*cref;
+    cstar=1.5*cref;
     setup_lung
     cvsolve
     outchecklung
     [~, PAbar, Pabar, Pv] = lung(0.5);
+    [~, cA, ca, cv] = lung(0.5);
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
+    ca_vaues(i) = ca;
+    cA_values(i) = cA;
+    cv_values(i) = cv;
 end
 
 figure;
@@ -45,4 +49,15 @@ xlabel('Altitude(m)');
 ylabel('Partial Pressure (mmHg)');
 legend;
 title('Partial Pressures as functions of Altitude');
+hold off;
+
+figure;
+hold on;
+plot(altitudes, cA_values, 'DisplayName', 'cA');
+plot(altitudes, ca_vaues, 'DisplayName', 'ca');
+plot(altitudes, cv_values, 'DisplayName', 'cv');
+xlabel('Altitude(m)');
+ylabel('Oxygen concentraion');
+legend;
+title('Oxygen concentraion as functions of Altitude');
 hold off;
