@@ -35,7 +35,7 @@ end
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
-    ca_vaues(i) = ca;
+    ca_values(i) = ca;
     cA_values(i) = cA;
     cv_values(i) = cv;
 end
@@ -54,7 +54,7 @@ hold off;
 figure;
 hold on;
 plot(altitudes, cA_values, 'DisplayName', 'cA');
-plot(altitudes, ca_vaues, 'DisplayName', 'ca');
+plot(altitudes, ca_values, 'DisplayName', 'ca');
 plot(altitudes, cv_values, 'DisplayName', 'cv');
 xlabel('Altitude(m)');
 ylabel('Oxygen concentraion');
