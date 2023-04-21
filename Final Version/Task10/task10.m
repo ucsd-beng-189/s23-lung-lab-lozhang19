@@ -1,4 +1,4 @@
-% Task6
+% Task10
 clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
@@ -26,14 +26,33 @@ end
     RT=760*22.4*(T0/273.15);
     cI=PI/RT;
     cref=0.2/(22.4*(310/273));
-    cstar=cref;
+    cstar=0.4*cref;
     setup_lung
-    cvsolve
+    try
+        cvsolve
     outchecklung
     [~, PAbar, Pabar, Pv] = lung(0.5);
+    [~, cA, ca, cv] = lung(0.5);
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
+    ca_values(i) = ca;
+    cA_values(i) = cA;
+    cv_values(i) = cv;
+
+        catch ME
+            if strcmp(ME.message,'M is too large')
+        Pabar_values( i) = NaN;
+        PAbar_values( i) = NaN;
+        Pv_values( i) = NaN;
+        ca_values(i) = NaN;
+        cA_values(i) = NaN;
+        cv_values(i) = NaN;
+
+            else
+                rethrow(ME)
+            end
+        end
 end
 
 figure;
@@ -45,4 +64,15 @@ xlabel('Altitude(m)');
 ylabel('Partial Pressure (mmHg)');
 legend;
 title('Partial Pressures as functions of Altitude');
+hold off;
+
+figure;
+hold on;
+plot(altitudes, cA_values, 'DisplayName', 'cA');
+plot(altitudes, ca_values, 'DisplayName', 'ca');
+plot(altitudes, cv_values, 'DisplayName', 'cv');
+xlabel('Altitude(m)');
+ylabel('Oxygen concentraion');
+legend;
+title('Oxygen concentraion as functions of Altitude');
 hold off;
