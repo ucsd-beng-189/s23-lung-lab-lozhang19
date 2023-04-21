@@ -19,9 +19,14 @@ for j = 1:length(beta_values)
         try
         cvsolve
         outchecklung
+        [~, PAbar, Pabar, Pv] = lung(0.5);
+        [~, cA, ca, cv] = lung(0.5);
         Pabar_values(j, i) = Pabar;
         PAbar_values(j, i) = PAbar;
-        Pv_values(j, i) = Pv;
+        Pv_values(j,i) = Pv;
+        ca_values(j,i) = cabar;
+        cA_values(j,i) = cAbar;
+        cv_values(j,i) = cv;
 
         if Pabar < Pabar_threshold
                 fprintf('For beta=%.2f, the minimum cstar value at which normal resting rate of oxygen consumption can be maintained is %.2f mmHg\n', beta, cstar);
@@ -32,6 +37,10 @@ for j = 1:length(beta_values)
         Pabar_values(j, i) = NaN;
         PAbar_values(j, i) = NaN;
         Pv_values(j, i) = NaN;
+        ca_values(j,i) = NaN;
+        cA_values(j,i) = NaN;
+        cv_values(j,i) = NaN;
+
             else
                 rethrow(ME)
             end
@@ -51,5 +60,21 @@ xlabel('cstar (mmHg)');
 ylabel('Partial Pressure (mmHg)');
 legend;
 title('Partial Pressures as functions of cstar for different beta values');
+set(gca, 'XDir', 'reverse');
+hold off;
+
+
+figure;
+hold on;
+for j = 1:length(beta_values)
+plot(cstar_values, cA_values(j, :), 'DisplayName', sprintf('cA, beta=%.2f', beta_values(j)));
+plot(cstar_values, ca_values(j, :), 'DisplayName', sprintf('ca, beta=%.2f', beta_values(j)));
+plot(cstar_values, cv_values(j, :), 'DisplayName', sprintf('cv, beta=%.2f', beta_values(j)));
+end
+
+xlabel('cstar(mmHg)');
+ylabel('Oxygen concentraion (mmHg)');
+legend;
+title('Oxygen concentraion as functions of cstar for different beta values');
 set(gca, 'XDir', 'reverse');
 hold off;
