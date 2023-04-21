@@ -6,22 +6,38 @@ global Pstar cstar n maxcount M Q camax RT cI beta;
 cref=0.2/(22.4*(310/273));
 cI = cref; % initial alveolar oxygen concentration (mmHg)
 
-beta_values = [0, 0.25, 0.5, 0.75, 1]; % values for beta
-cstar_values = [cref:-0.00025:0.5*cref]; % values for cstar
+beta_values = [ 0.25, 0.5, 0.75]; % values for beta
+cstar_values = [cref:-0.0005:0.1*cref]; % values for cstar
 
+Pabar_threshold = 80;
 
 for j = 1:length(beta_values)
     beta = beta_values(j);
     for i = 1:length(cstar_values)
         cstar = cstar_values(i);
         setup_lung
+        try
         cvsolve
         outchecklung
         Pabar_values(j, i) = Pabar;
         PAbar_values(j, i) = PAbar;
         Pv_values(j, i) = Pv;
+
+        if Pabar < Pabar_threshold
+                fprintf('For beta=%.2f, the minimum cstar value at which normal resting rate of oxygen consumption can be maintained is %.2f mmHg\n', beta, cstar);
+        end
+
+        catch ME
+            if strcmp(ME.message,'M is too large')
+        Pabar_values(j, i) = NaN;
+        PAbar_values(j, i) = NaN;
+        Pv_values(j, i) = NaN;
+            else
+                rethrow(ME)
+            end
+        end
     end
-end
+            end
 
 % Plot the results
 figure;
@@ -37,25 +53,3 @@ legend;
 title('Partial Pressures as functions of cstar for different beta values');
 set(gca, 'XDir', 'reverse');
 hold off;
-% Find the minimum value of cstar at which normal resting rate of oxygen consumption can be maintained
-
-for j = 1:length(beta_values)
-    beta = beta_values(j);
-    
-    for i = 1:length(cstar_values)
-        cstar = cstar_values(i);
-        
-        try
-            [PI, PAbar, Pabar, Pv] = lung(beta);
-            M_diff = M - Q' * (carterial(Pv, cstar, cI) - Pv);
-            
-            if M_diff > 0
-                min_cstar(j) = cstar;
-                break;
-            end
-        catch
-            % Do nothing, continue to the next cstar value
-        end
-    end
-end
-
