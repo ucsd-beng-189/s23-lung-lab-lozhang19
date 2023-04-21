@@ -1,9 +1,9 @@
-% Task8
+% Task6
 clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
-altitudes = [0:100:2000];
+altitudes = [0:100:5000];
 
 T0=288.15; %sea level standard temperature(K)
 P0=101325;%sea level standard atmospheric pressure
@@ -20,7 +20,8 @@ for i=1:length(altitudes)
     PI=(Patm_mmHg-PH2O)*FiO2;
     if PI < 0
     PI = 0.1;
-    end
+end
+
    
     RT=760*22.4*(T0/273.15);
     cI=PI/RT;
@@ -29,7 +30,7 @@ for i=1:length(altitudes)
     setup_lung
     cvsolve
     outchecklung
-    [~, PAbar, Pabar, Pv] = lung(0.25);
+    [~, PAbar, Pabar, Pv] = lung(0.5);
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
@@ -37,11 +38,11 @@ end
 
 figure;
 hold on;
-plot(altitudes, PAbar_values, 'DisplayName', ['Pabar,beta=' num2str(beta)]);
-plot(altitudes, Pabar_values, 'DisplayName', ['Pabar,beta=' num2str(beta)]);
-plot(altitudes, Pv_values, 'DisplayName', ['Pabar,beta=' num2str(beta)]);
+plot(altitudes, PAbar_values, 'DisplayName', 'PAbar');
+plot(altitudes, Pabar_values, 'DisplayName', 'Pabar');
+plot(altitudes, Pv_values, 'DisplayName', 'Pv');
 xlabel('Altitude(m)');
 ylabel('Partial Pressure (mmHg)');
 legend;
-title('Partial Pressures as functions of Altitude and Beta');
+title('Partial Pressures as functions of Altitude');
 hold off;
