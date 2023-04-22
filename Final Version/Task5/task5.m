@@ -3,7 +3,7 @@ clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
-cI_values = linspace(0.21, 0.10, 100);
+cI_values = [0.1:0.01:1];
 
 for i=1:length(cI_values)
     cI = cI_values(i);
@@ -18,9 +18,19 @@ for i=1:length(cI_values)
 end
 
 figure;
-hold on;
+subplot(3,1,1);
 plot(cI_values, PAbar_values, 'DisplayName', 'PAbar');
+xlabel('cI');
+ylabel('Partial Pressure (mmHg)');
+legend;
+title('Partial Pressures as functions of cI');
+subplot(3,1,2);
 plot(cI_values, Pabar_values, 'DisplayName', 'Pabar');
+xlabel('cI');
+ylabel('Partial Pressure (mmHg)');
+legend;
+title('Partial Pressures as functions of cI');
+subplot(3,1,3);
 plot(cI_values, Pv_values, 'DisplayName', 'Pv');
 xlabel('cI');
 ylabel('Partial Pressure (mmHg)');
