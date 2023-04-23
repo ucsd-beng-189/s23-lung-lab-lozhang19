@@ -1,4 +1,4 @@
-% Task6
+% Task8
 clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
