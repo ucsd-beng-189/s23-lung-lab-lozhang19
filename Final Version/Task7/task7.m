@@ -30,13 +30,13 @@ end
     setup_lung
     cvsolve
     outchecklung
-    [~, PAbar, Pabar, Pv] = lung(0.5);
-    [~, cA, ca, cv] = lung(0.5);
+    [~, PAbar, Pabar, Pv] = lung();
+    [~, cAbar, cabar, cv] = clung();
     Pabar_values(i) = Pabar;
     PAbar_values(i) = PAbar;
     Pv_values(i) = Pv;
-    ca_values(i) = ca;
-    cA_values(i) = cA;
+    ca_values(i) = cabar;
+    cA_values(i) = cAbar;
     cv_values(i) = cv;
 end
 
@@ -53,8 +53,8 @@ hold off;
 
 figure;
 hold on;
-plot(altitudes, cA_values, 'DisplayName', 'cA');
-plot(altitudes, ca_values, 'DisplayName', 'ca');
+plot(altitudes, cA_values, 'DisplayName', 'cAbar');
+plot(altitudes, ca_values, 'DisplayName', 'cabar');
 plot(altitudes, cv_values, 'DisplayName', 'cv');
 xlabel('Altitude(m)');
 ylabel('Oxygen concentraion');
