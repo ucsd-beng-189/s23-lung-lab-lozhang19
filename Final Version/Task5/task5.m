@@ -3,7 +3,8 @@ clear all;
 clf;
 global Pstar cstar n maxcount M Q camax RT cI;
 
-cI_values = [0.004:0.0001:0.01];
+cref=0.2/(22.4)*(310/273);
+cI_values = [0.005:0.0001:cref];
 
 for i=1:length(cI_values)
     cI = cI_values(i);
