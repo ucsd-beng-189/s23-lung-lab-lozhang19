@@ -7,7 +7,6 @@ cI_values = [0.004:0.0001:0.01];
 
 for i=1:length(cI_values)
     cI = cI_values(i);
-    PI = cI * RT;
     setup_lung
     cvsolve
     outchecklung
