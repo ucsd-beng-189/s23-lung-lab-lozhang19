@@ -1,4 +1,3 @@
-global Pstar n maxcount M Q camax RT PI beta VA Q;
 %heterogeneity parameter (0<=beta<=1):
 %beta=0 for homogenous lung
 %beta=1 for no ventilation/perfusion correlation
@@ -12,7 +11,7 @@ n=100
 %
 %reference oxygen concentration (moles/liter):
 cref=0.2/(22.4*(310/273))
-%cref=concentration of oxygen
+%cref=concentration of oxygen 
 %in air at sea level at body temperature
 %
 %oxygen concentration in the inspired air:

@@ -8,10 +8,10 @@ altitudes = [0:1:1000];
 for i=1:length(altitudes)
     altitude = altitudes(i);
     RT=760*22.4*(310/273);
-    cref = (0.2 / (22.4 + altitude)) * (1 / (310/273));
+    cref = 0.2 / ((22.4 + altitude) * (310/273));
     cI=cref; 
-    setup_lung
     try
+    setup_lung
     cvsolve
     outchecklung
      

@@ -1,4 +1,3 @@
-global Pstar n maxcount M Q camax RT PI beta VA Q;
 %heterogeneity parameter (0<=beta<=1):
 %beta=0 for homogenous lung
 %beta=1 for no ventilation/perfusion correlation

@@ -7,10 +7,10 @@ altitudes = [0:1:1000];
 
 for i=1:length(altitudes)
     altitude = altitudes(i);
-    cref = (0.2 / (22.4 + altitude)) * (1 / (310/273));
+    cref = 0.2 / ((22.4 + altitude) * (310/273));
     cstar=1.5*cref;
-    setup_lung
     try
+    setup_lung
     cvsolve
     outchecklung
      
@@ -26,9 +26,9 @@ for i=1:length(altitudes)
 catch ME
     if strcmp(ME.message,'M is too large')
         fprintf('At altitude %d meters, it becomes impossible to sustain the normal resting rate of oxygen consumption (without breathing harder or increasing the cardiac output).\n', altitude);
-        Pabar_values( i) = NaN;
-        PAbar_values( i) = NaN;
-        Pv_values( i) = NaN;
+        Pabar_values(i) = NaN;
+        PAbar_values(i) = NaN;
+        Pv_values(i) = NaN;
         ca_values(i) = NaN;
         cA_values(i) = NaN;
         cv_values(i) = NaN;
